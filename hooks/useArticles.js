@@ -10,8 +10,10 @@ export const useArticles = () => {
     setLoading(true);
     try {
       const response = await axios.get(
-        `https://api.nytimes.com/svc/mostpopular/v2/viewed/1.json?api-key=NekIuIkGm6xu57M6Io0d8jMnOXocCGox`
+        `https://api.nytimes.com/svc/search/v2/articlesearch.json?page=1&q=miami&api-key=NekIuIkGm6xu57M6Io0d8jMnOXocCGox`
       );
+      console.log("=====================================");
+      console.log(response.data.response.docs);
       setData(response.data.results);
     } catch (error) {
       setError(error);

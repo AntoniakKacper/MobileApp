@@ -1,6 +1,14 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { RootStackParams } from "../../routes/Routing";
 
-const StartingPage = ({ navigation }) => {
+type HomeNavigationProp = StackNavigationProp<RootStackParams>;
+
+interface StartingPageProps {
+  navigation: HomeNavigationProp;
+}
+
+const StartingPage = ({ navigation }: StartingPageProps): JSX.Element => {
   return (
     <TouchableOpacity
       style={styles.container}

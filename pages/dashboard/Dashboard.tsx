@@ -9,9 +9,9 @@ import {
 import { useArticles } from "../../hooks/useArticles";
 import Article from "./components/Article";
 
-const getArticle = ({ item }) => <Article article={item} />;
+// const getArticle = ({ item }) => <Article article={item} />;
 
-const Dashboard = () => {
+const Dashboard = (): JSX.Element => {
   const { loading, data: articles } = useArticles();
 
   if (loading)
@@ -23,11 +23,11 @@ const Dashboard = () => {
 
   return (
     <SafeAreaView style={styles.wrapper}>
-      <FlatList
+      {/* <FlatList
         data={articles}
         renderItem={getArticle}
         keyExtractor={(article) => article.asset_id}
-      />
+      /> */}
     </SafeAreaView>
   );
 };
