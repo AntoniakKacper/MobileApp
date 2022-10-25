@@ -10,6 +10,7 @@ interface Byline {
 }
 
 interface Headline {
+    main: string;
     print_headline: string;
 }
 
@@ -17,7 +18,7 @@ interface Multimedia {
     url: string;
 }
 
-export interface Article {
+export interface IArticle {
     _id: string;
     abstract: string;
     byline: Byline;

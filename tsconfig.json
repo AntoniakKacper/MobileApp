@@ -6,7 +6,7 @@
     "isolatedModules": true,
     "jsx": "react-native",
     "lib": [
-      "es2017"
+        "dom", "es2015", "es2018.promise"
     ],
     "types": [
       "react-native",

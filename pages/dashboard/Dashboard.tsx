@@ -7,9 +7,14 @@ import {
 } from "react-native";
 
 import { useArticles } from "../../hooks/useArticles";
+import { IArticle } from "../../models/Articles";
 import Article from "./components/Article";
 
-// const getArticle = ({ item }) => <Article article={item} />;
+interface Props {
+  item: IArticle;
+}
+
+const getArticle = ({ item }: Props) => <Article article={item} />;
 
 const Dashboard = (): JSX.Element => {
   const { loading, data: articles } = useArticles();
@@ -22,13 +27,11 @@ const Dashboard = (): JSX.Element => {
     );
 
   return (
-    <SafeAreaView style={styles.wrapper}>
-      {/* <FlatList
-        data={articles}
-        renderItem={getArticle}
-        keyExtractor={(article) => article.asset_id}
-      /> */}
-    </SafeAreaView>
+    <FlatList
+      data={articles}
+      renderItem={getArticle}
+      keyExtractor={(article) => article._id}
+    />
   );
 };
 
