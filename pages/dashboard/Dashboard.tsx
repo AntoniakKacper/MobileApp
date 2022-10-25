@@ -1,10 +1,6 @@
-import {
-  ActivityIndicator,
-  FlatList,
-  SafeAreaView,
-  StyleSheet,
-  View,
-} from "react-native";
+import { useState } from "react";
+import { ActivityIndicator, FlatList, StyleSheet, View } from "react-native";
+import { Spinner } from "../../components/Spinner";
 
 import { useArticles } from "../../hooks/useArticles";
 import { IArticle } from "../../models/Articles";
@@ -17,20 +13,28 @@ interface Props {
 const getArticle = ({ item }: Props) => <Article article={item} />;
 
 const Dashboard = (): JSX.Element => {
-  const { loading, data: articles } = useArticles();
+  const { loading, data: articles, fetchMore } = useArticles();
 
-  if (loading)
-    return (
-      <View style={[styles.container, styles.horizontal]}>
-        <ActivityIndicator size="large" color="#000000" />
-      </View>
-    );
+  // const fetchMore = () => {
+  //   setPage(page + 1);
+  //   console.log(page);
+  // };
+
+  // if (loading)
+  //   return (
+  //     <View style={[styles.container, styles.horizontal]}>
+  //       <ActivityIndicator size="large" color="#000000" />
+  //     </View>
+  //   );
 
   return (
     <FlatList
       data={articles}
       renderItem={getArticle}
       keyExtractor={(article) => article._id}
+      onEndReachedThreshold={0.2}
+      onEndReached={fetchMore}
+      ListFooterComponent={Spinner}
     />
   );
 };

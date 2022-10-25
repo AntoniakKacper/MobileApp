@@ -10,16 +10,16 @@ interface IRawResponse {
 
 export const useArticles = () => {
   const [loading, setLoading] = useState(false);
-  const [data, setData] = useState<null | IArticle[]>(null);
+  const [data, setData] = useState<IArticle[]>([]);
   const [error, setError] = useState(null);
+  const [page, setPage] = useState(1);
 
-  const fetchArticles = () => {
+  const fetchArticles = (): void => {
     setLoading(true);
     axios.get<IArticle[], AxiosResponse<IRawResponse>>(
-      `https://api.nytimes.com/svc/search/v2/articlesearch.json?page=1&q=miami&api-key=NekIuIkGm6xu57M6Io0d8jMnOXocCGox`
+      `https://api.nytimes.com/svc/search/v2/articlesearch.json?page=${page}&q=miami&api-key=NekIuIkGm6xu57M6Io0d8jMnOXocCGox`
     ).then((response) => {
-      // console.log(response.data.response.docs)
-      setData(response.data.response.docs)
+      setData([...data, ...response.data.response.docs])
     }).catch((error) => {
       setError(error)
     }).finally(() => {
@@ -27,9 +27,11 @@ export const useArticles = () => {
     });
   };
 
+  const fetchMore = (): void => setPage(page + 1)
+
   useEffect(() => {
     fetchArticles();
-  }, []);
+  }, [page]);
 
-  return { data, loading, error };
+  return { data, loading, error, fetchMore };
 };

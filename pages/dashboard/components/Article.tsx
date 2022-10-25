@@ -5,6 +5,12 @@ interface ArticleProps {
   article: IArticle;
 }
 
+const getArticleImage = (article: IArticle): string => {
+  if (!!article.multimedia[0])
+    return `https://www.nytimes.com/${article.multimedia[0].url}`;
+  return "https://www.nytimes.com/images/2022/09/29/sports/29nfl-tua/merlin_214042398_0507e79d-2e8b-4386-9709-fb058798231d-articleLarge.jpg";
+};
+
 const Article = ({ article }: ArticleProps) => {
   return (
     <View style={styles.container}>
@@ -14,7 +20,7 @@ const Article = ({ article }: ArticleProps) => {
       <Image
         style={{ width: 300, height: 300 }}
         source={{
-          uri: `https://www.nytimes.com/${article.multimedia[0].url}`,
+          uri: getArticleImage(article),
         }}
       />
     </View>
