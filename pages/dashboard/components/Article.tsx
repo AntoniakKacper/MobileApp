@@ -1,9 +1,17 @@
-import { ActivityIndicator, Image, StyleSheet, Text, View } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { IArticle } from "../../../models/Articles";
+import { RootStackParams } from "../../../routes/Routing";
 
 interface ArticleProps {
   article: IArticle;
 }
+
+type articleScreenNavigationType = StackNavigationProp<
+  RootStackParams,
+  "ArticleDetails"
+>;
 
 const getArticleImage = (article: IArticle): string => {
   if (!!article.multimedia[0])
@@ -11,9 +19,15 @@ const getArticleImage = (article: IArticle): string => {
   return "https://www.nytimes.com/images/2022/09/29/sports/29nfl-tua/merlin_214042398_0507e79d-2e8b-4386-9709-fb058798231d-articleLarge.jpg";
 };
 
-const Article = ({ article }: ArticleProps) => {
+const Article = ({ article }: ArticleProps): JSX.Element => {
+  const navigation = useNavigation<articleScreenNavigationType>();
   return (
-    <View style={styles.container}>
+    <TouchableOpacity
+      style={styles.container}
+      onPress={() =>
+        navigation.navigate("ArticleDetails", { article: article })
+      }
+    >
       <View style={styles.header}>
         <Text style={styles.title}>{article.headline.main}</Text>
       </View>
@@ -23,7 +37,7 @@ const Article = ({ article }: ArticleProps) => {
           uri: getArticleImage(article),
         }}
       />
-    </View>
+    </TouchableOpacity>
   );
 };
 

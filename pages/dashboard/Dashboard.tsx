@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ActivityIndicator, FlatList, StyleSheet, View } from "react-native";
+import { FlatList, StyleSheet, TextInput, View } from "react-native";
 import { Spinner } from "../../components/Spinner";
 
 import { useArticles } from "../../hooks/useArticles";
@@ -10,50 +10,38 @@ interface Props {
   item: IArticle;
 }
 
-const getArticle = ({ item }: Props) => <Article article={item} />;
+const getArticle = ({ item }: Props): JSX.Element => <Article article={item} />;
 
 const Dashboard = (): JSX.Element => {
-  const { loading, data: articles, fetchMore } = useArticles();
-
-  // const fetchMore = () => {
-  //   setPage(page + 1);
-  //   console.log(page);
-  // };
-
-  // if (loading)
-  //   return (
-  //     <View style={[styles.container, styles.horizontal]}>
-  //       <ActivityIndicator size="large" color="#000000" />
-  //     </View>
-  //   );
+  const [query, setQuery] = useState("");
+  const { data: articles, fetchMore } = useArticles(query);
 
   return (
-    <FlatList
-      data={articles}
-      renderItem={getArticle}
-      keyExtractor={(article) => article._id}
-      onEndReachedThreshold={0.2}
-      onEndReached={fetchMore}
-      ListFooterComponent={Spinner}
-    />
+    <View>
+      <TextInput
+        style={styles.input}
+        onChangeText={setQuery}
+        value={query}
+        placeholder="Search for article"
+      />
+      <FlatList
+        data={articles}
+        renderItem={getArticle}
+        keyExtractor={(article) => article._id}
+        onEndReachedThreshold={0.2}
+        onEndReached={fetchMore}
+        ListFooterComponent={Spinner}
+      />
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  wrapper: {
-    width: "100%",
-    alignItems: "center",
-    justifyContent: "center",
-    padding: 20,
-    overflowY: "auto",
-  },
-  container: {
-    flex: 1,
-    justifyContent: "center",
-  },
-  horizontal: {
-    flexDirection: "row",
-    justifyContent: "space-around",
+  input: {
+    height: 40,
+    marginHorizontal: 20,
+    marginVertical: 10,
+    borderWidth: 1,
     padding: 10,
   },
 });

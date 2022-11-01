@@ -1,12 +1,14 @@
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { IArticle } from "../models/Articles";
+import { ArticleDetails } from "../pages/dashboard/components/ArticleDetails";
 import Dashboard from "../pages/dashboard/Dashboard";
 import StartingPage from "../pages/starting/StartingPage";
-import { NavigationContainer } from "@react-navigation/native";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 export type RootStackParams = {
   Home: undefined;
   Dashboard: undefined;
+  ArticleDetails: { article: IArticle };
 };
 
 const Stack = createNativeStackNavigator<RootStackParams>();
@@ -21,6 +23,7 @@ const Routing = (): JSX.Element => {
           component={StartingPage}
         />
         <Stack.Screen name="Dashboard" component={Dashboard} />
+        <Stack.Screen name="ArticleDetails" component={ArticleDetails} />
       </Stack.Navigator>
     </NavigationContainer>
   );

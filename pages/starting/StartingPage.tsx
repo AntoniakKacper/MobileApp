@@ -1,14 +1,15 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { RootStackParams } from "../../routes/Routing";
+import { useNavigation } from "@react-navigation/native";
+import { RootStackParams } from "../../routes/types";
 
-type HomeNavigationProp = StackNavigationProp<RootStackParams>;
+type articleScreenNavigationType = StackNavigationProp<
+  RootStackParams,
+  "Dashboard"
+>;
 
-interface StartingPageProps {
-  navigation: HomeNavigationProp;
-}
-
-const StartingPage = ({ navigation }: StartingPageProps): JSX.Element => {
+const StartingPage = (): JSX.Element => {
+  const navigation = useNavigation<articleScreenNavigationType>();
   return (
     <TouchableOpacity
       style={styles.container}
