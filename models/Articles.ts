@@ -6,7 +6,7 @@ interface Person {
 
 interface Byline {
     original: string;
-    person: Person;
+    person: Person[];
 }
 
 interface Headline {
@@ -25,4 +25,5 @@ export interface IArticle {
     headline: Headline;
     lead_paragraph: string;
     multimedia: Multimedia[];
+    web_url: string;
 }
