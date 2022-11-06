@@ -1,10 +1,7 @@
-import { useState } from "react";
 import { AntDesign } from "@expo/vector-icons";
 import { useRoute } from "@react-navigation/native";
 import React from "react";
-
 import {
-  Image,
   Linking,
   ScrollView,
   StyleSheet,
@@ -12,24 +9,20 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import { Image } from "react-native-expo-image-cache";
+
+import { NoArticles } from "../../../components/NoArticles";
+import { useFavorites } from "../../../hooks/useFavorites";
 import { IArticle } from "../../../models/Articles";
 
 interface ArticleDetailsProps {}
 
 export const ArticleDetails = ({}: ArticleDetailsProps) => {
   const { article } = useRoute().params as { article: IArticle | null };
+  const { isFavorite, toggleFavorite } = useFavorites();
   const person = article?.byline.person[0];
 
-  const [isFavorite, setFavorite] = useState<boolean>(false);
-
-  const toggleFavorite = (): void => setFavorite(!isFavorite);
-
-  if (!article)
-    return (
-      <View style={styles.container}>
-        <Text style={styles.headline}>Article details not found</Text>
-      </View>
-    );
+  if (!article) return <NoArticles message="Article details not found" />;
 
   return (
     <ScrollView>
@@ -41,10 +34,10 @@ export const ArticleDetails = ({}: ArticleDetailsProps) => {
         </Text>
         <TouchableOpacity
           style={styles.favoriteButton}
-          onPress={toggleFavorite}
+          onPress={() => toggleFavorite(article)}
         >
           <AntDesign
-            name={`${isFavorite ? "heart" : "hearto"}`}
+            name={`${isFavorite(article._id) ? "heart" : "hearto"}`}
             size={24}
             color="red"
           />
@@ -53,9 +46,7 @@ export const ArticleDetails = ({}: ArticleDetailsProps) => {
       </View>
       <Image
         style={{ height: 300 }}
-        source={{
-          uri: `https://www.nytimes.com/${article.multimedia[0].url}`,
-        }}
+        uri={`https://www.nytimes.com/${article.multimedia[0].url}`}
       />
       <View style={styles.container}>
         <View>

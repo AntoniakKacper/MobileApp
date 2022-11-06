@@ -21,13 +21,12 @@ const getArticleImage = (article: IArticle): string => {
 
 const Article = ({ article }: ArticleProps): JSX.Element => {
   const navigation = useNavigation<articleScreenNavigationType>();
+
+  const handleRedirect = () =>
+    navigation.navigate("ArticleDetails", { article: article });
+
   return (
-    <TouchableOpacity
-      style={styles.container}
-      onPress={() =>
-        navigation.navigate("ArticleDetails", { article: article })
-      }
-    >
+    <TouchableOpacity style={styles.container} onPress={handleRedirect}>
       <View style={styles.header}>
         <Text style={styles.title}>{article.headline.main}</Text>
       </View>
@@ -57,6 +56,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontWeight: "bold",
     fontSize: 15,
+    fontFamily: "serif",
   },
 });
 
