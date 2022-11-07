@@ -9,7 +9,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { Image } from "react-native-expo-image-cache";
+import { ArticleImage } from "../../../components/ArticleImage";
 
 import { NoArticles } from "../../../components/NoArticles";
 import { useFavorites } from "../../../hooks/useFavorites";
@@ -44,10 +44,7 @@ export const ArticleDetails = ({}: ArticleDetailsProps) => {
           <Text style={styles.text}>Favorite</Text>
         </TouchableOpacity>
       </View>
-      <Image
-        style={{ height: 300 }}
-        uri={`https://www.nytimes.com/${article.multimedia[0].url}`}
-      />
+      <ArticleImage url={article?.multimedia[0]?.url} />
       <View style={styles.container}>
         <View>
           <Text style={styles.textWrapper}>{`Author: ${

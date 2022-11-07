@@ -19,7 +19,9 @@
     "expo-status-bar": "~1.4.0",
     "react": "18.0.0",
     "react-native": "0.69.6",
-    "react-native-expo-image-cache": "^4.1.0"
+    "react-native-expo-image-cache": "^4.1.0",
+    "react-native-svg": "12.3.0",
+    "expo-updates": "~0.14.6"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
